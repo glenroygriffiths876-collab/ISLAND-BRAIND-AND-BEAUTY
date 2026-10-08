@@ -11,6 +11,13 @@ from pathlib import Path
 OUT = Path("assets/instagram")
 OUT.mkdir(parents=True, exist_ok=True)
 POSTS = [
+    # Five hand-picked Reels supplied by the business; always process first.
+    ("featured-dztpo", "DZtpoIIuAhH"),
+    ("featured-dyn5", "DYN5x57ubAK"),
+    ("featured-dxq", "DXqVCdCEhJ-"),
+    ("featured-dxar", "DXarAiYAagj"),
+    ("featured-dwaa", "DWAaovIjksS"),
+    # Previous verified Island Braids posts (preserve existing media).
     ("parting", "DBBnjADxbx4"),
     ("boho", "DIVOZl2OKeE"),
     ("hair-store", "DMty3PQOV2U"),
@@ -102,7 +109,16 @@ def via_instaloader(stem, shortcode):
     return True,video_saved
 
 for stem,shortcode in POSTS:
-    result={"name":stem,"post":shortcode,"photo":False,"video":False}
+    result={"name":stem,"post":shortcode,"photo":False,"video":False,
+            "source":"https://www.instagram.com/reel/"+shortcode+"/"}
+    # Reuse already-imported, verified videos instead of downloading every time.
+    old_photo=(OUT/(stem+".webp")).exists()
+    old_video=(OUT/(stem+".mp4")).exists()
+    if old_photo and old_video:
+        result.update(photo=True, video=True)
+        results.append(result)
+        print("Reusing existing owned Instagram media:",stem)
+        continue
     try:
         result["photo"],result["video"]=via_instaloader(stem,shortcode)
         print("Imported via public Instagram metadata:",stem)
@@ -114,5 +130,48 @@ for stem,shortcode in POSTS:
         except Exception as e2:
             print("Public access failed for",stem,":",str(e2)[:240])
     results.append(result)
+
+# Find up to four more recent hair/braiding videos from the same official account.
+# This is strictly optional: public Instagram may block anonymous profile browsing.
+try:
+    import instaloader
+    loader=instaloader.Instaloader(download_pictures=False,download_videos=False,
+                                 save_metadata=False,quiet=True)
+    profile=instaloader.Profile.from_username(loader.context,"islandbraids.us")
+    if not safe_owner(profile.username):
+        raise ValueError("Unexpected profile")
+    seen={shortcode for stem,shortcode in POSTS}
+    checked=0
+    extras=0
+    for post in profile.get_posts():
+        if checked>=22 or extras>=4:
+            break
+        checked+=1
+        shortcode=post.shortcode
+        if shortcode in seen or not post.is_video:
+            continue
+        caption=(post.caption or "").lower()
+        if not any(word in caption for word in
+                   ("braid","boho","hair","wig","sew in","cornrow","client","style","knotless","install")):
+            continue
+        if not safe_owner(post.owner_username):
+            continue
+        seen.add(shortcode)
+        stem="discovered-"+shortcode.lower().replace("-","")
+        result={"name":stem,"post":shortcode,"photo":False,"video":False,
+                "source":"https://www.instagram.com/reel/"+shortcode+"/",
+                "caption":(post.caption or "").strip()[:170]}
+        try:
+            result["photo"],result["video"]=via_instaloader(stem,shortcode)
+            print("Discovered more genuine Island Braids footage:",shortcode)
+        except Exception as e:
+            print("Discovery download unavailable:",str(e)[:180])
+        if result["photo"]:
+            results.append(result)
+            extras+=1
+    print("Additional verified Island Braids posts discovered:",extras)
+except Exception as e:
+    print("Public account discovery restricted:",str(e)[:220])
+
 (OUT/"manifest.json").write_text(json.dumps(results,indent=2)+"\n")
 print("MEDIA_RESULT",json.dumps(results))

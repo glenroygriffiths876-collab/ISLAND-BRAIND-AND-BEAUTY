@@ -161,7 +161,7 @@
   .services-refined .service-body .text-link{font-size:.65rem}
 }
 @media(prefers-reduced-motion:reduce){.services-refined .service-visual>img{transition:none}}
-</style><link rel="stylesheet" href="./assets/css/hero-motion.css?v=20261008-2">
+</style><link rel="stylesheet" href="./assets/css/hero-motion.css?v=20261008-3">
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="topbar">Jamaican roots · Florida beauty · Your signature look</div>
@@ -315,4 +315,4 @@ document.getElementById('ib-clear').onclick=()=>{ibBag=[];ibSave()};
 function ibEmail(subject,body){const message=[subject,...body].join('\n');location.href='sms:+14075909478?body='+encodeURIComponent(message)}
 document.getElementById('ib-booking').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);ibEmail('Island Braids appointment request',['Please confirm my appointment request','Service: '+d.get('service'),'Date: '+d.get('date'),'Time: '+d.get('time'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Notes: '+d.get('notes'),'Policies accepted: Yes'])});
 document.getElementById('ib-order').addEventListener('submit',e=>{e.preventDefault();if(!ibBag.length){alert('Please add a product to your bag first.');return}const d=new FormData(e.currentTarget);ibEmail('Island Braids order request',['Please confirm my order','Items: '+ibBag.join('; '),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Fulfilment: '+d.get('delivery'),'Preferred payment: '+d.get('payment'),'Please confirm stock, product options and total before payment.'])});ibRender();
-</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-2" defer></script></body></html>
+</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-3" defer></script></body></html>

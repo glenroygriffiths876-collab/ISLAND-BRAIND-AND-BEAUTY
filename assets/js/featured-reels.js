@@ -101,6 +101,17 @@ fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{
   heroSlides.forEach((img,i)=>{
     if(img && newSlidePosters[i])img.src=newSlidePosters[i];
   });
+  // Carry the correct first-party new looks into their matching service cards.
+  const knotless=selectedAvailable.find(r=>r.name==='featured-dwaa');
+  const braidsPhoto=document.querySelector('.service-portfolio .service-card:first-child .service-visual img');
+  if(knotless && braidsPhoto)braidsPhoto.src=base+knotless.name+'.webp';
+  const hdLace=selectedAvailable.find(r=>r.name==='featured-dxq');
+  const lacePanel=document.querySelector('.service-portfolio .service-card:nth-child(3) .service-frontal-image');
+  if(hdLace && lacePanel){
+    lacePanel.style.backgroundImage='url("'+base+hdLace.name+'.webp")';
+    lacePanel.style.backgroundSize='cover';
+    lacePanel.style.backgroundPosition='center';
+  }
   const counter=document.getElementById('ib-featured-reels-count');
   if(counter)counter.textContent=String(display.length)+' original Island Braids videos';
 }).catch(()=>{

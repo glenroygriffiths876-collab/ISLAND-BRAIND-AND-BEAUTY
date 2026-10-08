@@ -9,13 +9,13 @@
     "name": "boho",
     "post": "DIVOZl2OKeE",
     "photo": true,
-    "video": false
+    "video": true
   },
   {
     "name": "hair-store",
     "post": "DMty3PQOV2U",
     "photo": true,
-    "video": false
+    "video": true
   },
   {
     "name": "braid-work",
@@ -27,12 +27,12 @@
     "name": "boho-box",
     "post": "DPY-NR1DrK7",
     "photo": true,
-    "video": false
+    "video": true
   },
   {
     "name": "braid-finish",
     "post": "DLurVy7KGBH",
     "photo": true,
-    "video": false
+    "video": true
   }
 ]

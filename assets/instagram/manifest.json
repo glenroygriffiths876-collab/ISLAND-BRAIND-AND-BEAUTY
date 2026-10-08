@@ -1,38 +1,86 @@
 [
   {
-    "name": "parting",
-    "post": "DBBnjADxbx4",
+    "name": "featured-dztpo",
+    "post": "DZtpoIIuAhH",
+    "photo": true,
+    "video": true,
+    "source": "https://www.instagram.com/reel/DZtpoIIuAhH/"
+  },
+  {
+    "name": "featured-dyn5",
+    "post": "DYN5x57ubAK",
+    "photo": true,
+    "video": true,
+    "source": "https://www.instagram.com/reel/DYN5x57ubAK/"
+  },
+  {
+    "name": "featured-dxq",
+    "post": "DXqVCdCEhJ-",
+    "photo": true,
+    "video": true,
+    "source": "https://www.instagram.com/reel/DXqVCdCEhJ-/"
+  },
+  {
+    "name": "featured-dxar",
+    "post": "DXarAiYAagj",
+    "photo": true,
+    "video": true,
+    "source": "https://www.instagram.com/reel/DXarAiYAagj/"
+  },
+  {
+    "name": "featured-dwaa",
+    "post": "DWAaovIjksS",
+    "photo": true,
+    "video": true,
+    "source": "https://www.instagram.com/reel/DWAaovIjksS/"
+  },
+  {
+    "name": "more-borabora",
+    "post": "DaXfGpWBYPo",
     "photo": false,
-    "video": false
+    "video": false,
+    "source": "https://www.instagram.com/reel/DaXfGpWBYPo/"
+  },
+  {
+    "name": "more-customcolor",
+    "post": "DYqnWakxT95",
+    "photo": false,
+    "video": false,
+    "source": "https://www.instagram.com/reel/DYqnWakxT95/"
+  },
+  {
+    "name": "more-boho-full",
+    "post": "DaVR2ECuoTo",
+    "photo": false,
+    "video": false,
+    "source": "https://www.instagram.com/reel/DaVR2ECuoTo/"
   },
   {
     "name": "boho",
     "post": "DIVOZl2OKeE",
     "photo": true,
-    "video": true
+    "video": true,
+    "source": "https://www.instagram.com/reel/DIVOZl2OKeE/"
   },
   {
     "name": "hair-store",
     "post": "DMty3PQOV2U",
     "photo": true,
-    "video": true
-  },
-  {
-    "name": "braid-work",
-    "post": "C5tbVbHh2SH",
-    "photo": false,
-    "video": false
+    "video": true,
+    "source": "https://www.instagram.com/reel/DMty3PQOV2U/"
   },
   {
     "name": "boho-box",
     "post": "DPY-NR1DrK7",
     "photo": true,
-    "video": true
+    "video": true,
+    "source": "https://www.instagram.com/reel/DPY-NR1DrK7/"
   },
   {
     "name": "braid-finish",
     "post": "DLurVy7KGBH",
     "photo": true,
-    "video": true
+    "video": true,
+    "source": "https://www.instagram.com/reel/DLurVy7KGBH/"
   }
 ]

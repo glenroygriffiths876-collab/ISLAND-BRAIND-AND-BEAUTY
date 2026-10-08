@@ -36,7 +36,9 @@ jobs:
             echo "No new verified media to commit"
           else
             git commit -m "Import verified public Island Braids social media assets"
-            git push
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
           fi
       - name: Summarize import
         if: always()

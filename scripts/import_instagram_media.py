@@ -39,20 +39,34 @@ def poster_from_video(path, stem):
         print("Could not create poster:",str(e)[:180])
         return None
 
+def has_audio(path):
+    """Report genuine embedded audio; never claim mute clips have a soundtrack."""
+    try:
+        probe=subprocess.run(["ffmpeg","-hide_banner","-i",str(path)], 
+                             capture_output=True,text=True,timeout=20)
+        return "Audio:" in probe.stderr
+    except Exception:
+        return False
+
 def prepare_video(path, stem):
     target = OUT / (stem + ".mp4")
     try:
+        # Unlike the old importer, do NOT strip the audio track with "-an".
+        # "?": gracefully handle Reels whose public file has no sound at source.
         subprocess.run(["ffmpeg","-y","-loglevel","error","-i",str(path),
-                        "-t","18","-an","-vf","scale='min(760,iw)':-2",
+                        "-t","27","-map","0:v:0","-map","0:a:0?",
+                        "-vf","scale='min(760,iw)':-2",
                         "-c:v","libx264","-preset","veryfast","-crf","27",
-                        "-pix_fmt","yuv420p","-movflags","+faststart",str(target)],
+                        "-pix_fmt","yuv420p","-c:a","aac","-b:a","128k",
+                        "-ac","2","-movflags","+faststart",str(target)],
                         check=True,timeout=140)
-        if target.stat().st_size>12500000:
+        if target.stat().st_size>15500000:
             target.unlink(missing_ok=True)
             return None
+        print("Audio retained:",has_audio(target),"clip:",stem)
         return target
     except Exception as e:
-        print("Could not encode video:",str(e)[:180])
+        print("Could not encode video:",str(e)[:220])
         return None
 
 def via_ytdlp(stem, shortcode):
@@ -113,11 +127,13 @@ for stem,shortcode in POSTS:
     # Reuse already-imported, verified videos instead of downloading every time.
     old_photo=(OUT/(stem+".webp")).exists()
     old_video=(OUT/(stem+".mp4")).exists()
-    if old_photo and old_video:
-        result.update(photo=True, video=True)
+    if old_photo and old_video and has_audio(OUT/(stem+".mp4")):
+        result.update(photo=True, video=True, audio=True)
         results.append(result)
-        print("Reusing existing owned Instagram media:",stem)
+        print("Reusing existing video with working audio:",stem)
         continue
+    if old_video:
+        print("Old video has no audio; attempting a fresh sound-preserving import:",stem)
     try:
         result["photo"],result["video"]=via_instaloader(stem,shortcode)
         print("Imported via public Instagram metadata:",stem)
@@ -128,6 +144,11 @@ for stem,shortcode in POSTS:
             print("Imported via yt-dlp:",stem)
         except Exception as e2:
             print("Public access failed for",stem,":",str(e2)[:240])
+    # A failed attempt must never make already-published video disappear.
+    result["photo"]=(OUT/(stem+".webp")).is_file()
+    result["video"]=(OUT/(stem+".mp4")).is_file()
+    result["audio"]=has_audio(OUT/(stem+".mp4")) if result["video"] else False
+    print("FINAL_REEL_MEDIA",stem,"video",result["video"],"audio",result["audio"])
     results.append(result)
 
 # Only confirmed @islandbraids.us media is admitted. No unrelated creator content.

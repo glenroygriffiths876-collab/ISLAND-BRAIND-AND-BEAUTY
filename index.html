@@ -198,6 +198,39 @@
 .ib-hair-request .ib-panel h3{color:#641b43;font-size:1.45rem;margin-top:0}
 @media(max-width:800px){.ib-hair-edit-layout{grid-template-columns:1fr}.ib-hair-edit-visual{min-height:280px}.ib-hair-edit-visual img{min-height:290px;max-height:390px}.ib-hair-edit-visual img:nth-child(2){min-height:225px}.ib-hair-edit-copy h2{font-size:clamp(2.4rem,9vw,3.7rem)}}
 @media(max-width:520px){.ib-hair-edit-visual{min-height:245px;gap:8px}.ib-hair-edit-visual img{min-height:245px;max-height:300px}.ib-hair-edit-visual img:nth-child(2){min-height:200px}.ib-hair-edit-stamp{bottom:12px;left:10px;padding:9px 11px;font-size:.55rem}.ib-hair-edit-copy .actions .btn{flex:1 1 auto;text-align:center}}
+</style><style id="ib-sound-and-controls-2026">
+.ib-reel-audio-status,.ib-native-audio-note{
+  font-size:.76rem;color:#075b42;font-weight:650;margin:.1rem 0 .8rem;
+  display:flex;align-items:center;gap:8px;line-height:1.45;
+}
+.ib-reel-audio-status:before,.ib-native-audio-note:before{
+  content:"";width:7px;height:7px;flex:none;background:#16856a;
+  border-radius:50%;box-shadow:0 0 0 3px #16856a19;
+}
+.ib-reel-feature-frame video:focus-visible,.ib-native-video video:focus-visible{
+  outline:3px solid #bb3a7e;outline-offset:-3px
+}
+.ib-hair-request textarea,.ib-hair-request input,.ib-hair-request select{
+  font:inherit;
+}
+.ib-hair-request textarea:focus-visible,.ib-hair-request input:focus-visible,.ib-hair-request select:focus-visible{
+  outline:2px solid #b13e7e;outline-offset:2px
+}
+/* Subtle premium feedback on navigation, social links, and utility controls. */
+.ib-social-link,.menu-toggle,.ib-motion-toggle,.ib-add,#ib-clear{
+  transition:transform .24s ease,box-shadow .24s ease,background-color .24s ease;
+}
+.ib-social-link:hover,.menu-toggle:hover,.ib-motion-toggle:hover,#ib-clear:hover{
+  transform:translateY(-2px)
+}
+.ib-social-link:active,.menu-toggle:active,.ib-motion-toggle:active,#ib-clear:active{
+  transform:scale(.97)
+}
+@media(prefers-reduced-motion:reduce){
+  .ib-social-link,.menu-toggle,.ib-motion-toggle,.ib-add,#ib-clear{
+    transition:none!important;animation:none!important
+  }
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="topbar">Jamaican roots · Florida beauty · Your signature look</div>
@@ -409,4 +442,4 @@ document.getElementById('ib-clear').onclick=()=>{ibBag=[];ibSave()};
 function ibEmail(subject,body){const message=[subject,...body].join('\n');location.href='sms:+14075909478?body='+encodeURIComponent(message)}
 document.getElementById('ib-booking').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);ibEmail('Island Braids appointment request',['Please confirm my appointment request','Service: '+d.get('service'),'Date: '+d.get('date'),'Time: '+d.get('time'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Notes: '+d.get('notes'),'Policies accepted: Yes'])});
 document.getElementById('ib-order').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);const request=String(d.get('request')||'').trim();if(!request){alert('Please describe the hair or supplies you are looking for.');return;}ibEmail('Island Braids hair and supplies enquiry',['Please advise on the following hair or supplies: '+request,'Previously saved items (if any): '+(ibBag.length?ibBag.join('; '):'None'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Preferred fulfilment: '+d.get('delivery'),'Please confirm suitable options, stock and price before any payment.'])});ibRender();
-</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-3" defer></script><script src="./assets/js/featured-reels.js?v=20261008-audio" defer></script></body></html>
+</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js?v=20261008-sound" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-reels" defer></script><script src="./assets/js/featured-reels.js?v=20261008-sound-v2" defer></script></body></html>

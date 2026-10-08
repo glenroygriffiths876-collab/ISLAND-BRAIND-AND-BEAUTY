@@ -45,9 +45,13 @@
       };
       if(manifest.video){
         const video=node('video',{
-          controls:'',playsinline:'',preload:'none',poster:base+item.stem+'.webp',
+          controls:'',playsinline:'',preload:'metadata',poster:base+item.stem+'.webp',
           'aria-label':'Play the Island Braids video: '+item.title
         },[node('source',{src:base+item.stem+'.mp4',type:'video/mp4'})]);
+        video.muted=false;
+        body.insertBefore(node('p',{class:'ib-native-audio-note',
+          text:manifest.audio===true?'Sound included · tap play':
+          'Silent preview · see original Reel for sound'}),open);
         video.addEventListener('error',()=>{video.replaceWith(imageLink)});
         const media=node('div',{class:'ib-native-media ib-native-video'},[video]);
         card.append(media);

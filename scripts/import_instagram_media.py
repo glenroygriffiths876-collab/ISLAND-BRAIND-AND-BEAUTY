@@ -17,10 +17,6 @@ POSTS = [
     ("featured-dxq", "DXqVCdCEhJ-"),
     ("featured-dxar", "DXarAiYAagj"),
     ("featured-dwaa", "DWAaovIjksS"),
-    # Related public posts located from the same official Island Braids account.
-    ("more-borabora", "DaXfGpWBYPo"),
-    ("more-customcolor", "DYqnWakxT95"),
-    ("more-boho-full", "DaVR2ECuoTo"),
     # Already verified and locally stored assets (skip duplicate downloads).
     ("boho", "DIVOZl2OKeE"),
     ("hair-store", "DMty3PQOV2U"),
@@ -134,7 +130,6 @@ for stem,shortcode in POSTS:
             print("Public access failed for",stem,":",str(e2)[:240])
     results.append(result)
 
-# Additional related posts were identified explicitly from public search results.
-# Do not crawl the whole account here; that can rate-limit verified requests.
+# Only confirmed @islandbraids.us media is admitted. No unrelated creator content.
 (OUT/"manifest.json").write_text(json.dumps(results,indent=2)+"\n")
 print("MEDIA_RESULT",json.dumps(results))

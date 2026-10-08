@@ -148,7 +148,33 @@
   #home .ib-mosaic-tile--campaign img.ib-feature-frame--boho,
   #home .ib-mosaic-tile--campaign img.ib-feature-frame--finish,
   #home .ib-mosaic-tile--braids img.ib-tile-crossfade,
-  #home .ib-mosaic-tile--style img.ib-tile-crossfade{animation:none!important;opacity:0!important}
+  #home .ib-mosaic-tile--style img.ib-tile-crossfade{animation:none!important}
   #home .ib-motion-dot,#home .ib-motion-indicator:after{animation:none!important}
   .ib-motion-on main h2.ib-scroll-title.ib-show{animation:none!important}
+}
+
+/* Explicit user opt-in allows the collage to play even when the device prefers reduced motion. */
+@media(prefers-reduced-motion:reduce){
+  #home.ib-motion-opted-in .ib-hero-mosaic{
+    animation:ib-mosaic-wander 12s ease-in-out infinite alternate!important;
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--boho{
+    animation:ib-slide-boho 16s linear infinite!important;
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--finish{
+    animation:ib-slide-finish 16s linear infinite!important;
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--braids img.ib-tile-crossfade,
+  #home.ib-motion-opted-in .ib-mosaic-tile--style img.ib-tile-crossfade{
+    animation:ib-tile-crossfade 12s ease-in-out infinite!important;
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--style img.ib-tile-crossfade{
+    animation-delay:-5s!important;
+  }
+  #home.ib-motion-opted-in .ib-motion-dot{
+    animation:ib-live-pulse 1.6s ease-in-out infinite!important;
+  }
+  #home.ib-motion-opted-in .ib-motion-indicator:after{
+    animation:ib-cycle-progress 4s linear infinite!important;
+  }
 }

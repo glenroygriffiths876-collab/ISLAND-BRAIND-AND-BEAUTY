@@ -178,3 +178,11 @@
     animation:ib-cycle-progress 4s linear infinite!important;
   }
 }
+
+/* Explicitly pausing always wins over the reduced-motion opt-in animation declaration. */
+#home.ib-motion-opted-in.ib-collage-paused .ib-hero-mosaic,
+#home.ib-motion-opted-in.ib-collage-paused .ib-mosaic-tile img,
+#home.ib-motion-opted-in.ib-collage-paused .ib-motion-dot,
+#home.ib-motion-opted-in.ib-collage-paused .ib-motion-indicator:after{
+  animation-play-state:paused!important;
+}

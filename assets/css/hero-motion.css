@@ -241,7 +241,8 @@
   transition:transform .28s ease,box-shadow .28s ease,
              background-color .28s ease,color .28s ease,filter .28s ease;
 }
-.btn,.sticky-book{position:relative;isolation:isolate}
+.btn:not(.sticky-book){position:relative;isolation:isolate}
+.sticky-book{isolation:isolate}
 .btn:hover,.sticky-book:hover{transform:translateY(-3px);box-shadow:0 12px 26px #61183e32}
 .btn:active,.sticky-book:active{transform:translateY(0) scale(.97)}
 .ib-reel-original:hover,.ib-native-visit:hover,.text-link:hover{
@@ -302,4 +303,47 @@
 .btn-primary:active::before,.sticky-book:active::before{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){
   .btn-primary::before,.sticky-book::before{animation:none!important;display:none}
+}
+
+
+/* Floating booking fix (2026-10-08).
+   Previous general animation rule assigned position:relative to .sticky-book,
+   overriding position:fixed and leaving the button in document flow.
+   Keep it floating on phones and small tablets. */
+@media(max-width:900px){
+  a.sticky-book{
+    position:fixed!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    bottom:max(16px,env(safe-area-inset-bottom,0px))!important;
+    right:16px!important;
+    left:auto!important;
+    top:auto!important;
+    z-index:100!important;
+    width:auto!important;
+    height:50px!important;
+    min-height:50px!important;
+    padding:0 18px!important;
+    border-radius:100px!important;
+    font-size:.75rem!important;
+    line-height:1!important;
+    letter-spacing:.07em!important;
+    text-decoration:none!important;
+    color:#fff!important;
+    background:#075b42!important;
+    box-shadow:0 7px 24px #0d372d5c!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none;
+  }
+  a.sticky-book svg{width:18px;height:18px;display:block}
+  body{padding-bottom:max(72px,calc(60px + env(safe-area-inset-bottom,0px)))}
+}
+@media(min-width:901px){
+  a.sticky-book{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  a.sticky-book{animation:none!important}
 }

@@ -39,7 +39,7 @@
   }
   const playIfAllowed=()=>{
     if(!video)return;
-    if(userPaused || document.hidden || reduce.matches || saveData || !hero.getBoundingClientRect().height){
+    if(userPaused || document.documentElement.classList.contains('ib-audible-video-playing') || document.hidden || reduce.matches || saveData || !hero.getBoundingClientRect().height){
       video.pause();return;
     }
     const bounds=hero.getBoundingClientRect();
@@ -55,6 +55,22 @@
     window.addEventListener('scroll',playIfAllowed,{passive:true});
     reduce.addEventListener?.('change',playIfAllowed);
   }
+  // Listening to a Reel must take priority over the decorative, muted hero loop.
+  document.addEventListener('play',event=>{
+    const playing=event.target;
+    if(!(playing instanceof HTMLVideoElement) || playing===video || playing.muted)return;
+    document.documentElement.classList.add('ib-audible-video-playing');
+    if(video)video.pause();
+    document.querySelectorAll('video').forEach(other=>{
+      if(other!==playing && !other.muted)other.pause();
+    });
+  },true);
+  const resetAudioLock=()=>{
+    const any=[...document.querySelectorAll('video')].some(el=>!el.muted && !el.paused);
+    if(!any)document.documentElement.classList.remove('ib-audible-video-playing');
+  };
+  document.addEventListener('pause',resetAudioLock,true);
+  document.addEventListener('ended',resetAudioLock,true);
   const headings=[...document.querySelectorAll('main h2,main h3')].filter(el=>!el.closest('#home') && !el.closest('summary'));
   if(!reduce.matches && 'IntersectionObserver' in window){
     const observer=new IntersectionObserver(entries=>{

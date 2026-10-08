@@ -83,7 +83,9 @@
     for(const record of records){
       if(byName.has(record.name) && record.post===byName.get(record.name).id)verified.set(record.name,record);
     }
-    gallery.replaceChildren(...items.map(item=>createCard(item,verified.get(item.stem))));
+    const ready=items.filter(item=>verified.get(item.stem) && verified.get(item.stem).photo);
+    // Only show actual first-party images, never blank or failed embed cards.
+    if (ready.length) gallery.replaceChildren(...ready.map(item=>createCard(item,verified.get(item.stem))));
     installVideo(verified);
   }
   fetch(base+'manifest.json',{cache:'no-store'})

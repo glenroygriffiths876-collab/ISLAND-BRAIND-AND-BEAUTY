@@ -30,7 +30,7 @@ function ibRender(){ibItems.replaceChildren();if(!ibBag.length){ibItems.textCont
 function ibSave(){localStorage.setItem(ibKey,JSON.stringify(ibBag));ibRender()}
 document.querySelectorAll('.ib-add').forEach(a=>a.addEventListener('click',()=>{ibBag.push(a.closest('.product').querySelector('h3').textContent);ibSave()}));
 document.getElementById('ib-clear').onclick=()=>{ibBag=[];ibSave()};
-function ibEmail(subject,body){location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body.join('\n'))}
+function ibEmail(subject,body){const message=[subject,...body].join('\n');location.href='sms:+14075909478?body='+encodeURIComponent(message)}
 document.getElementById('ib-booking').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);ibEmail('Island Braids appointment request',['Please confirm my appointment request','Service: '+d.get('service'),'Date: '+d.get('date'),'Time: '+d.get('time'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Notes: '+d.get('notes'),'Policies accepted: Yes'])});
 document.getElementById('ib-order').addEventListener('submit',e=>{e.preventDefault();if(!ibBag.length){alert('Please add a product to your bag first.');return}const d=new FormData(e.currentTarget);ibEmail('Island Braids order request',['Please confirm my order','Items: '+ibBag.join('; '),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Fulfilment: '+d.get('delivery'),'Preferred payment: '+d.get('payment'),'Please confirm stock, product options and total before payment.'])});ibRender();
 </script></body></html>

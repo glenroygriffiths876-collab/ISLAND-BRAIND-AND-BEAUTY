@@ -29,7 +29,8 @@ function cardFor(record,i){
   const video=mk('video','ib-reel-player');
   video.controls=true;
   video.playsInline=true;
-  video.preload='none';
+  video.muted=false; // Sound is user-controlled; background hero remains muted.
+  video.preload='metadata';
   video.poster=base+record.name+'.webp';
   video.setAttribute('aria-label','Play '+title);
   const source=mk('source');
@@ -54,7 +55,10 @@ function cardFor(record,i){
   link.href='https://www.instagram.com/reel/'+record.post+'/';
   link.target='_blank';
   link.rel='noopener noreferrer';
-  body.append(label,heading,link);
+  const audioStatus=mk('p','ib-reel-audio-status',
+    record.audio===true?'Sound available · tap play to listen':
+    'Silent preview · use original Reel for Instagram audio');
+  body.append(label,heading,audioStatus,link);
   card.append(frame,body);
   return card;
 }
@@ -71,7 +75,7 @@ fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{
   if(!Array.isArray(records))return;
   const verified=records.filter(r=>r && r.video && r.photo && /^[a-z0-9-]+$/.test(r.name||'') && /^[A-Za-z0-9_-]+$/.test(r.post||''));
   const selectedAvailable=selected.map(item=>verified.find(r=>r.name===item.name && r.post===item.id)).filter(Boolean);
-  const extras=verified.filter(r=>r.name.startsWith('discovered-') || r.name.startsWith('more-')).slice(0,5);
+  const extras=verified.filter(r=>r.name.startsWith('discovered-')).slice(0,5);
   const display=[...selectedAvailable,...extras];
   if(!display.length)return;  // Old verified gallery remains visible without new empty cards.
   const frag=document.createDocumentFragment();
@@ -80,10 +84,9 @@ fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{
   section.hidden=false;
   const hero=document.querySelector('#home .ib-mosaic-tile--video video');
   const heroPoster=document.querySelector('#home .ib-mosaic-tile--video img');
-  const heroSlides=[document.querySelector('#home .ib-feature-frame--boho'),
-                    document.querySelector('#home .ib-feature-frame--finish')];
+  const heroSlides=[...document.querySelectorAll('#home .ib-feature-frame:not(.ib-feature-frame--primary)')];
   if(hero && selectedAvailable.length){
-    const featured=selectedAvailable[0];
+    const featured=selectedAvailable.find(r=>r.name==='featured-dxq') || selectedAvailable[0];
     const source=hero.querySelector('source');
     if(source){
       hero.pause();
@@ -97,7 +100,11 @@ fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{
       }
     }
   }
-  const newSlidePosters=selectedAvailable.slice(0,2).map(r=>base+r.name+'.webp');
+  const displayOrder=['featured-dztpo','featured-dyn5','featured-dxar','featured-dwaa'];
+  const newSlidePosters=displayOrder.map(name=>{
+    const found=selectedAvailable.find(r=>r.name===name);
+    return found ? base+found.name+'.webp' : null;
+  });
   heroSlides.forEach((img,i)=>{
     if(img && newSlidePosters[i])img.src=newSlidePosters[i];
   });

@@ -285,3 +285,21 @@
     opacity:0;animation:ib-look-four 25s linear infinite!important
   }
 }
+
+
+/* ib-button-shine-v5: restrained luxury light-sweep visible on touch devices. */
+.btn-primary,.sticky-book{overflow:hidden}
+.btn-primary::before,.sticky-book::before{
+  content:"";position:absolute;inset:-10% auto -10% -65%;
+  width:42%;transform:skewX(-19deg) translateX(-125%);
+  background:linear-gradient(90deg,transparent,#ffffff0a 20%,#ffffff70 49%,#ffffff13 77%,transparent);
+  pointer-events:none;z-index:2;animation:ib-button-sheen 9s ease-in-out infinite;
+}
+@keyframes ib-button-sheen{
+  0%,12%,40%,100%{transform:skewX(-19deg) translateX(-125%)}
+  25%{transform:skewX(-19deg) translateX(510%)}
+}
+.btn-primary:active::before,.sticky-book:active::before{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .btn-primary::before,.sticky-book::before{animation:none!important;display:none}
+}

@@ -186,3 +186,102 @@
 #home.ib-motion-opted-in.ib-collage-paused .ib-motion-indicator:after{
   animation-play-state:paused!important;
 }
+
+
+/* ib-evolved-editorial-motion-v4 — varied real Shana portraits, client work, visible video. */
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--boho,
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--finish,
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--third,
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--fourth{
+  inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;
+  opacity:0;animation-duration:25s;animation-timing-function:linear;
+  animation-iteration-count:infinite;animation-direction:normal;
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--boho{
+  z-index:2;animation-name:ib-look-one
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--finish{
+  z-index:3;animation-name:ib-look-two
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--third{
+  z-index:4;animation-name:ib-look-three
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--fourth{
+  z-index:5;animation-name:ib-look-four
+}
+@keyframes ib-look-one{
+  0%,13%{opacity:0}19%,31%{opacity:1}37%,100%{opacity:0}
+}
+@keyframes ib-look-two{
+  0%,31%{opacity:0}37%,49%{opacity:1}55%,100%{opacity:0}
+}
+@keyframes ib-look-three{
+  0%,49%{opacity:0}55%,67%{opacity:1}73%,100%{opacity:0}
+}
+@keyframes ib-look-four{
+  0%,67%{opacity:0}73%,87%{opacity:1}93%,100%{opacity:0}
+}
+#home .ib-hero-mosaic{animation-duration:16s}
+#home .ib-mosaic-tile--braids img.ib-tile-crossfade{animation-duration:10s}
+#home .ib-mosaic-tile--style img.ib-tile-crossfade{animation-duration:13s}
+#home .ib-mosaic-tile--video img{z-index:0}
+#home .ib-mosaic-tile--video video{z-index:1;filter:saturate(1.04) contrast(1.02)}
+#home .ib-motion-indicator{box-shadow:0 4px 22px #300f2b25}
+/* The image/video actually moves where mobile visitors can see it. */
+@media(max-width:800px){
+  #home .ib-mosaic-tile--video{grid-column:5/7;grid-row:1/3}
+  #home .ib-mosaic-tile--braids{grid-column:1/4;grid-row:4/6}
+  #home .ib-mosaic-tile--style{grid-column:5/7;grid-row:3/6}
+  #home .ib-mosaic-tile--detail{grid-column:4/5;grid-row:4/6}
+  #home .image-label{display:none}
+  #home .ib-motion-indicator{max-width:55%;font-size:.53rem}
+}
+/* Shared premium button treatments, including a gentle motion cue for touch screens. */
+.btn, .ib-native-visit, .ib-reel-original, .text-link, .sticky-book{
+  transition:transform .28s ease,box-shadow .28s ease,
+             background-color .28s ease,color .28s ease,filter .28s ease;
+}
+.btn,.sticky-book{position:relative;isolation:isolate}
+.btn:hover,.sticky-book:hover{transform:translateY(-3px);box-shadow:0 12px 26px #61183e32}
+.btn:active,.sticky-book:active{transform:translateY(0) scale(.97)}
+.ib-reel-original:hover,.ib-native-visit:hover,.text-link:hover{
+  color:#c12d7f;transform:translateY(-2px)
+}
+.btn:focus-visible,.sticky-book:focus-visible,.text-link:focus-visible{
+  outline:3px solid #d04a93;outline-offset:3px
+}
+#home .actions .btn-primary,.ib-hair-edit-copy .btn-primary,
+.ib-reels-curated .btn-primary{
+  animation:ib-elegant-cta-breath 7s ease-in-out infinite
+}
+@keyframes ib-elegant-cta-breath{
+  0%,13%,100%{box-shadow:0 5px 15px #641b431b;filter:brightness(1)}
+  18%,24%{box-shadow:0 8px 24px #641b4354;filter:brightness(1.09)}
+  29%{box-shadow:0 5px 15px #641b431b;filter:brightness(1)}
+}
+@media(hover:none){
+  .sticky-book{animation:ib-elegant-cta-breath 8s ease-in-out infinite}
+}
+@media(prefers-reduced-motion:reduce){
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--boho,
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--finish,
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--third,
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--fourth{
+    animation:none!important;opacity:0!important
+  }
+  .btn,.sticky-book,.ib-native-visit,.ib-reel-original,.text-link{
+    animation:none!important;transition:none!important
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--boho{
+    opacity:0;animation:ib-look-one 25s linear infinite!important
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--finish{
+    opacity:0;animation:ib-look-two 25s linear infinite!important
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--third{
+    opacity:0;animation:ib-look-three 25s linear infinite!important
+  }
+  #home.ib-motion-opted-in .ib-mosaic-tile--campaign img.ib-feature-frame--fourth{
+    opacity:0;animation:ib-look-four 25s linear infinite!important
+  }
+}

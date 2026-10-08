@@ -11,6 +11,7 @@
   let userPaused=false;
   if(toggle){
     toggle.addEventListener('click',()=>{
+      if(reduce.matches && userPaused)hero.classList.add('ib-motion-opted-in');
       userPaused=!userPaused;
       hero.classList.toggle('ib-collage-paused',userPaused);
       toggle.setAttribute('aria-pressed',String(userPaused));
@@ -25,11 +26,15 @@
       }
     });
     if(reduce.matches){
-      toggle.setAttribute('aria-label','Motion disabled by phone accessibility settings');
-      toggle.disabled=true;
-      toggle.title='Motion is disabled by your device accessibility settings';
+      // Respect reduced motion by default; a direct user tap can opt back in.
+      userPaused=true;
+      hero.classList.add('ib-collage-paused');
+      toggle.setAttribute('aria-pressed','true');
+      toggle.setAttribute('aria-label','Play collage manually');
       const label=toggle.querySelector('.ib-motion-toggle-text');
-      if(label)label.textContent='Motion off in settings';
+      const glyph=toggle.querySelector('.ib-motion-toggle-symbol');
+      if(label)label.textContent='Play collage';
+      if(glyph)glyph.textContent='▶';
     }
   }
   const playIfAllowed=()=>{

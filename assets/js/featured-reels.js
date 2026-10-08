@@ -8,11 +8,11 @@ const row=document.getElementById('ib-featured-reels-row');
 if(!section || !row)return;
 const base='./assets/instagram/';
 const selected=[
-  {name:'featured-dztpo',id:'DZtpoIIuAhH'},
-  {name:'featured-dyn5',id:'DYN5x57ubAK'},
-  {name:'featured-dxq',id:'DXqVCdCEhJ-'},
-  {name:'featured-dxar',id:'DXarAiYAagj'},
-  {name:'featured-dwaa',id:'DWAaovIjksS'}
+  {name:'featured-dztpo',id:'DZtpoIIuAhH',title:'Boho Knotless · Hair Included'},
+  {name:'featured-dyn5',id:'DYN5x57ubAK',title:'A Fresh Look from Shana'},
+  {name:'featured-dxq',id:'DXqVCdCEhJ-',title:'The HD Lace Difference'},
+  {name:'featured-dxar',id:'DXarAiYAagj',title:'Luxury Boho Knotless Braids'},
+  {name:'featured-dwaa',id:'DWAaovIjksS',title:'Comfortable Knotless Styling'}
 ];
 const known=new Map(selected.map((x,i)=>[x.name,{id:x.id,position:i}]));
 const mk=(tag,classes,text)=>{
@@ -22,7 +22,8 @@ const mk=(tag,classes,text)=>{
   return e;
 };
 function cardFor(record,i){
-  const title=i<selected.length?'Shana’s latest Reel '+String(i+1).padStart(2,'0'):'More from Shana’s chair';
+  const match=known.get(record.name);
+  const title=match ? selected[match.position].title : 'More from Shana’s chair';
   const card=mk('article','ib-reel-feature');
   const frame=mk('div','ib-reel-feature-frame');
   const video=mk('video','ib-reel-player');
@@ -42,11 +43,12 @@ function cardFor(record,i){
   fallback.hidden=true;
   video.addEventListener('error',()=>{
     video.hidden=true;
+    video.style.display='none';
     fallback.hidden=false;
   });
   frame.append(video,fallback);
   const body=mk('div','ib-reel-feature-body');
-  const label=mk('span','ib-reel-feature-kicker',i<5?'Handpicked Reel':'From Shana’s Instagram');
+  const label=mk('span','ib-reel-feature-kicker',match?'Shana’s Featured Reel':'From Shana’s Instagram');
   const heading=mk('h3','',title);
   const link=mk('a','ib-reel-original','Open original ↗');
   link.href='https://www.instagram.com/reel/'+record.post+'/';
@@ -69,7 +71,7 @@ fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{
   if(!Array.isArray(records))return;
   const verified=records.filter(r=>r && r.video && r.photo && /^[a-z0-9-]+$/.test(r.name||'') && /^[A-Za-z0-9_-]+$/.test(r.post||''));
   const selectedAvailable=selected.map(item=>verified.find(r=>r.name===item.name && r.post===item.id)).filter(Boolean);
-  const extras=verified.filter(r=>r.name.startsWith('discovered-')).slice(0,4);
+  const extras=verified.filter(r=>r.name.startsWith('discovered-') || r.name.startsWith('more-')).slice(0,5);
   const display=[...selectedAvailable,...extras];
   if(!display.length)return;  // Old verified gallery remains visible without new empty cards.
   const frag=document.createDocumentFragment();

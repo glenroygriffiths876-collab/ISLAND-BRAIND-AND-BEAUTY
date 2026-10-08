@@ -84,7 +84,8 @@ def via_instaloader(stem, shortcode):
     import instaloader, requests
     from PIL import Image
     loader=instaloader.Instaloader(download_pictures=False,download_videos=False,
-                                 save_metadata=False,quiet=True)
+                                 save_metadata=False,quiet=True,
+                                 request_timeout=12,max_connection_attempts=1)
     post=instaloader.Post.from_shortcode(loader.context,shortcode)
     if not safe_owner(post.owner_username):
         raise ValueError(f"Wrong post author: {post.owner_username}")

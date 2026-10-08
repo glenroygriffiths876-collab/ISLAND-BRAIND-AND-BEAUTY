@@ -7,9 +7,34 @@
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
   const saveData=!!(navigator.connection && navigator.connection.saveData);
   const video=hero.querySelector('.ib-mosaic-tile--video video');
+  const toggle=hero.querySelector('.ib-motion-toggle');
+  let userPaused=false;
+  if(toggle){
+    toggle.addEventListener('click',()=>{
+      userPaused=!userPaused;
+      hero.classList.toggle('ib-collage-paused',userPaused);
+      toggle.setAttribute('aria-pressed',String(userPaused));
+      toggle.setAttribute('aria-label',userPaused?'Play moving collage':'Pause moving collage');
+      const label=toggle.querySelector('.ib-motion-toggle-text');
+      const glyph=toggle.querySelector('.ib-motion-toggle-symbol');
+      if(label)label.textContent=userPaused?'Play collage':'Pause collage';
+      if(glyph)glyph.textContent=userPaused?'▶':'Ⅱ';
+      if(video){
+        if(userPaused)video.pause();
+        else playIfAllowed();
+      }
+    });
+    if(reduce.matches){
+      toggle.setAttribute('aria-label','Motion disabled by phone accessibility settings');
+      toggle.disabled=true;
+      toggle.title='Motion is disabled by your device accessibility settings';
+      const label=toggle.querySelector('.ib-motion-toggle-text');
+      if(label)label.textContent='Motion off in settings';
+    }
+  }
   const playIfAllowed=()=>{
     if(!video)return;
-    if(document.hidden || reduce.matches || saveData || !hero.getBoundingClientRect().height){
+    if(userPaused || document.hidden || reduce.matches || saveData || !hero.getBoundingClientRect().height){
       video.pause();return;
     }
     const bounds=hero.getBoundingClientRect();

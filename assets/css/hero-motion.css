@@ -55,3 +55,100 @@
   #home .ib-mosaic-tile--video img{z-index:0}
   .ib-motion-on main .ib-scroll-title{opacity:1!important;transform:none!important;transition:none!important}
 }
+
+
+/* ib-visible-carousel-v2: deliberate image changes, visible on Android even without video autoplay. */
+#home .ib-mosaic-tile--campaign img.ib-feature-frame{
+  width:100%;height:100%;inset:0;object-fit:cover;object-position:center 25%;
+  animation:none;
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--primary{z-index:1}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--boho{
+  z-index:2;opacity:0;animation:ib-slide-boho 16s linear infinite;
+}
+#home .ib-mosaic-tile--campaign img.ib-feature-frame--finish{
+  z-index:3;opacity:0;animation:ib-slide-finish 16s linear infinite;
+}
+#home .ib-mosaic-tile--braids img.ib-tile-crossfade,
+#home .ib-mosaic-tile--style img.ib-tile-crossfade{
+  z-index:1;opacity:0;animation:ib-tile-crossfade 12s ease-in-out infinite;
+}
+#home .ib-mosaic-tile--style img.ib-tile-crossfade{animation-delay:-5s}
+/* Main portrait displays first, then two real hair photographs, returning to portrait. */
+@keyframes ib-slide-boho{
+  0%,22%{opacity:0}
+  28%,48%{opacity:1}
+  56%,100%{opacity:0}
+}
+@keyframes ib-slide-finish{
+  0%,50%{opacity:0}
+  57%,84%{opacity:1}
+  92%,100%{opacity:0}
+}
+@keyframes ib-tile-crossfade{
+  0%,18%{opacity:0}
+  29%,60%{opacity:1}
+  73%,100%{opacity:0}
+}
+/* More obvious floating composition, but no abrupt motion or layout shift. */
+#home .ib-hero-mosaic{animation:ib-mosaic-wander 12s ease-in-out infinite alternate}
+#home .ib-mosaic-tile:not(.ib-mosaic-tile--campaign) img:not(.ib-tile-crossfade){animation:ib-mosaic-zoom 11s ease-in-out infinite alternate}
+#home .ib-motion-indicator{
+  position:absolute;left:22px;top:20px;z-index:5;
+  padding:9px 12px;border-radius:22px;
+  background:#fffaf4e8;border:1px solid #fff9;
+  color:#641b43;font-size:.62rem;font-weight:700;letter-spacing:.095em;
+  text-transform:uppercase;display:flex;align-items:center;gap:8px;
+  pointer-events:none;backdrop-filter:blur(8px);
+}
+#home .ib-motion-dot{
+  display:block;width:7px;height:7px;flex:none;background:#b72f72;
+  border-radius:50%;animation:ib-live-pulse 1.6s ease-in-out infinite
+}
+#home .ib-motion-indicator:after{
+  content:"";height:2px;width:26px;border-radius:4px;
+  background:linear-gradient(90deg,#b72f72 50%,#e9bdce 50%);
+  background-size:200% 100%;animation:ib-cycle-progress 4s linear infinite;
+}
+@keyframes ib-live-pulse{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes ib-cycle-progress{from{background-position:100% 0}to{background-position:0 0}}
+#home .ib-motion-toggle{
+  font:inherit;font-size:.77rem;font-weight:700;line-height:1.2;
+  padding:9px 12px;border-radius:22px;cursor:pointer;min-height:35px;
+  align-self:flex-start;margin-top:18px;display:inline-flex;align-items:center;gap:8px;
+  color:#641b43;background:#ffffffb8;border:1px solid #ba9da9;
+}
+#home .ib-motion-toggle:hover{background:#fff}
+#home .ib-motion-toggle:focus-visible{outline:3px solid #c4568f;outline-offset:3px}
+#home .ib-motion-toggle-symbol{font-size:.9rem}
+#home.ib-collage-paused .ib-hero-mosaic,
+#home.ib-collage-paused .ib-mosaic-tile img,
+#home.ib-collage-paused .ib-motion-dot,
+#home.ib-collage-paused .ib-motion-indicator:after{
+  animation-play-state:paused!important;
+}
+#home.ib-collage-paused .ib-motion-indicator .ib-motion-indicator-copy:after{content:" · paused"}
+/* A clear reveal underline accompanies the existing fade-up heading entrance. */
+.ib-motion-on main h2.ib-scroll-title.ib-show{
+  animation:ib-heading-arrival .85s ease-out both;
+}
+@keyframes ib-heading-arrival{
+  from{filter:blur(2px);letter-spacing:.018em}
+  to{filter:blur(0);letter-spacing:normal}
+}
+@media(max-width:800px){
+  #home .ib-motion-indicator{
+    top:13px;left:13px;padding:8px 10px;font-size:.58rem;gap:6px
+  }
+  #home .ib-motion-indicator:after{width:18px}
+  #home .ib-motion-toggle{font-size:.7rem;min-height:32px;margin-top:11px}
+}
+/* Device accessibility preferences remain respected. */
+@media(prefers-reduced-motion:reduce){
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--boho,
+  #home .ib-mosaic-tile--campaign img.ib-feature-frame--finish,
+  #home .ib-mosaic-tile--braids img.ib-tile-crossfade,
+  #home .ib-mosaic-tile--style img.ib-tile-crossfade{animation:none!important;opacity:0!important}
+  #home .ib-motion-dot,#home .ib-motion-indicator:after{animation:none!important}
+  .ib-motion-on main h2.ib-scroll-title.ib-show{animation:none!important}
+}

@@ -9,7 +9,6 @@
   const status = document.getElementById('ib-calendar-status');
   const zone = 'America/New_York';
 
-  const pad = number => String(number).padStart(2, '0');
   const escapeICS = input => String(input ?? '')
     .replace(/\\/g, '\\\\').replace(/\r\n|\r|\n/g, '\\n')
     .replace(/;/g, '\\;').replace(/,/g, '\\,');
@@ -107,7 +106,23 @@
       'END:VEVENT',
       'END:VCALENDAR'
     ];
-    return lines.join('\r\n') + '\r\n';
+    // RFC 5545 requires folded content lines (75 octets maximum).
+    const encoder = new TextEncoder();
+    const fold = line => {
+      let output = '';
+      let column = 0;
+      for (const character of line) {
+        const bytes = encoder.encode(character).length;
+        if (column + bytes > 73) {
+          output += '\r\n ';
+          column = 1;
+        }
+        output += character;
+        column += bytes;
+      }
+      return output;
+    };
+    return lines.map(fold).join('\r\n') + '\r\n';
   };
   document.getElementById('ib-calendar-copy').addEventListener('click', () => {
     if (!request) return;
@@ -160,10 +175,7 @@
       location: v.location || ''
     });
     const url = 'https://calendar.google.com/calendar/render?' + params.toString();
-    const opened = window.open(url, '_blank', 'noopener,noreferrer');
-    if (!opened) {
-      window.location.href = url;
-    }
-    showStatus('Google Calendar opened. Review the event and set both reminders before saving.');
+    // Same-tab navigation avoids mobile popup blockers; Back returns to the site.
+    window.location.assign(url);
   });
 })();

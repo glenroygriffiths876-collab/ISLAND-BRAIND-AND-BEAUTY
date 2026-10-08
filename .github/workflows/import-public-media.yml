@@ -22,7 +22,9 @@ jobs:
           python-version: "3.12"
       - name: Install public media helpers
         run: |
-          python -m pip install --disable-pip-version-check --quiet yt-dlp instaloader pillow requests
+          python -m pip install --disable-pip-version-check --quiet yt-dlp instaloader pillow requests imageio-ffmpeg
+          sudo ln -sf "$(python -c 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())')" /usr/local/bin/ffmpeg
+          ffmpeg -version | head -1
       - name: Fetch and verify public Island Braids posts
         run: python scripts/import_instagram_media.py
       - name: Save fetched media assets

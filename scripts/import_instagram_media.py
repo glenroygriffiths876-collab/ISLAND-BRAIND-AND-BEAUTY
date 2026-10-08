@@ -11,17 +11,19 @@ from pathlib import Path
 OUT = Path("assets/instagram")
 OUT.mkdir(parents=True, exist_ok=True)
 POSTS = [
-    # Five hand-picked Reels supplied by the business; always process first.
+    # The five Reels the owner specifically selected, in the owner's order.
     ("featured-dztpo", "DZtpoIIuAhH"),
     ("featured-dyn5", "DYN5x57ubAK"),
     ("featured-dxq", "DXqVCdCEhJ-"),
     ("featured-dxar", "DXarAiYAagj"),
     ("featured-dwaa", "DWAaovIjksS"),
-    # Previous verified Island Braids posts (preserve existing media).
-    ("parting", "DBBnjADxbx4"),
+    # Related public posts located from the same official Island Braids account.
+    ("more-borabora", "DaXfGpWBYPo"),
+    ("more-customcolor", "DYqnWakxT95"),
+    ("more-boho-full", "DaVR2ECuoTo"),
+    # Already verified and locally stored assets (skip duplicate downloads).
     ("boho", "DIVOZl2OKeE"),
     ("hair-store", "DMty3PQOV2U"),
-    ("braid-work", "C5tbVbHh2SH"),
     ("boho-box", "DPY-NR1DrK7"),
     ("braid-finish", "DLurVy7KGBH"),
 ]
@@ -131,47 +133,7 @@ for stem,shortcode in POSTS:
             print("Public access failed for",stem,":",str(e2)[:240])
     results.append(result)
 
-# Find up to four more recent hair/braiding videos from the same official account.
-# This is strictly optional: public Instagram may block anonymous profile browsing.
-try:
-    import instaloader
-    loader=instaloader.Instaloader(download_pictures=False,download_videos=False,
-                                 save_metadata=False,quiet=True)
-    profile=instaloader.Profile.from_username(loader.context,"islandbraids.us")
-    if not safe_owner(profile.username):
-        raise ValueError("Unexpected profile")
-    seen={shortcode for stem,shortcode in POSTS}
-    checked=0
-    extras=0
-    for post in profile.get_posts():
-        if checked>=22 or extras>=4:
-            break
-        checked+=1
-        shortcode=post.shortcode
-        if shortcode in seen or not post.is_video:
-            continue
-        caption=(post.caption or "").lower()
-        if not any(word in caption for word in
-                   ("braid","boho","hair","wig","sew in","cornrow","client","style","knotless","install")):
-            continue
-        if not safe_owner(post.owner_username):
-            continue
-        seen.add(shortcode)
-        stem="discovered-"+shortcode.lower().replace("-","")
-        result={"name":stem,"post":shortcode,"photo":False,"video":False,
-                "source":"https://www.instagram.com/reel/"+shortcode+"/",
-                "caption":(post.caption or "").strip()[:170]}
-        try:
-            result["photo"],result["video"]=via_instaloader(stem,shortcode)
-            print("Discovered more genuine Island Braids footage:",shortcode)
-        except Exception as e:
-            print("Discovery download unavailable:",str(e)[:180])
-        if result["photo"]:
-            results.append(result)
-            extras+=1
-    print("Additional verified Island Braids posts discovered:",extras)
-except Exception as e:
-    print("Public account discovery restricted:",str(e)[:220])
-
+# Additional related posts were identified explicitly from public search results.
+# Do not crawl the whole account here; that can rate-limit verified requests.
 (OUT/"manifest.json").write_text(json.dumps(results,indent=2)+"\n")
 print("MEDIA_RESULT",json.dumps(results))

@@ -161,7 +161,7 @@
   .services-refined .service-body .text-link{font-size:.65rem}
 }
 @media(prefers-reduced-motion:reduce){.services-refined .service-visual>img{transition:none}}
-</style><link rel="stylesheet" href="./assets/css/hero-motion.css?v=20261008-3">
+</style><link rel="stylesheet" href="./assets/css/hero-motion.css?v=20261008-evolved">
 <style id="ib-curated-reels-2026">
 /* Latest verified first-party Island Braids Reels: visible vertical clips, no embeds. */
 .ib-reels-curated{margin:0 0 45px;padding:28px 0 26px;border-top:1px solid #e8d5dd;border-bottom:1px solid #e8d5dd}
@@ -206,13 +206,28 @@
   <div class="ib-hero-mosaic" aria-hidden="true">
     <div class="ib-mosaic-tile ib-mosaic-tile--campaign">
       <img class="ib-feature-frame ib-feature-frame--primary" src="./assets/images/island-braids-campaign-hd-2d632d7.webp" alt="" fetchpriority="high" loading="eager" decoding="async">
-      <img class="ib-feature-frame ib-feature-frame--boho" src="./assets/instagram/boho.webp" alt="" loading="eager" decoding="async">
-      <img class="ib-feature-frame ib-feature-frame--finish" src="./assets/instagram/braid-finish.webp" alt="" loading="eager" decoding="async">
+      <img class="ib-feature-frame ib-feature-frame--boho" src="./assets/instagram/featured-dztpo.webp" alt="" loading="eager" decoding="async">
+      <img class="ib-feature-frame ib-feature-frame--finish" src="./assets/instagram/featured-dyn5.webp" alt="" loading="eager" decoding="async">
+      <img class="ib-feature-frame ib-feature-frame--third" src="./assets/instagram/featured-dxar.webp" alt="" loading="eager" decoding="async">
+      <img class="ib-feature-frame ib-feature-frame--fourth" src="./assets/instagram/featured-dwaa.webp" alt="" loading="eager" decoding="async">
     </div>
-    <div class="ib-mosaic-tile ib-mosaic-tile--braids"><img src="./assets/instagram/boho.webp" alt="" loading="eager" decoding="async"><img class="ib-tile-crossfade" src="./assets/instagram/hair-store.webp" alt="" loading="eager" decoding="async"></div>
-    <div class="ib-mosaic-tile ib-mosaic-tile--style"><img src="./assets/instagram/braid-finish.webp" alt="" loading="eager" decoding="async"><img class="ib-tile-crossfade" src="./assets/instagram/boho-box.webp" alt="" loading="eager" decoding="async"></div>
-    <div class="ib-mosaic-tile ib-mosaic-tile--video"><img src="./assets/instagram/boho-box.webp" alt="" loading="eager" decoding="async"><video muted autoplay loop playsinline preload="metadata" poster="./assets/instagram/boho-box.webp" aria-hidden="true"><source src="./assets/instagram/boho-box.mp4" type="video/mp4"></video></div>
-    <div class="ib-mosaic-tile ib-mosaic-tile--detail"><img src="./assets/instagram/hair-store.webp" alt="" loading="lazy" decoding="async"></div>
+    <div class="ib-mosaic-tile ib-mosaic-tile--braids">
+      <img src="./assets/instagram/boho.webp" alt="" loading="lazy" decoding="async">
+      <img class="ib-tile-crossfade" src="./assets/instagram/featured-dxq.webp" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="ib-mosaic-tile ib-mosaic-tile--style">
+      <img src="./assets/instagram/braid-finish.webp" alt="" loading="lazy" decoding="async">
+      <img class="ib-tile-crossfade" src="./assets/instagram/boho-box.webp" alt="" loading="lazy" decoding="async">
+    </div>
+    <div class="ib-mosaic-tile ib-mosaic-tile--video">
+      <img src="./assets/instagram/featured-dxq.webp" alt="" loading="eager" decoding="async">
+      <video muted autoplay loop playsinline preload="metadata" poster="./assets/instagram/featured-dxq.webp" aria-hidden="true">
+        <source src="./assets/instagram/featured-dxq.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="ib-mosaic-tile ib-mosaic-tile--detail">
+      <img src="./assets/instagram/hair-store.webp" alt="" loading="lazy" decoding="async">
+    </div>
   </div>
   <div class="ib-mosaic-sheen" aria-hidden="true"></div>
   <div class="ib-motion-indicator" aria-hidden="true"><span class="ib-motion-dot"></span><span class="ib-motion-indicator-copy">Moving lookbook</span></div>
@@ -394,4 +409,4 @@ document.getElementById('ib-clear').onclick=()=>{ibBag=[];ibSave()};
 function ibEmail(subject,body){const message=[subject,...body].join('\n');location.href='sms:+14075909478?body='+encodeURIComponent(message)}
 document.getElementById('ib-booking').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);ibEmail('Island Braids appointment request',['Please confirm my appointment request','Service: '+d.get('service'),'Date: '+d.get('date'),'Time: '+d.get('time'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Notes: '+d.get('notes'),'Policies accepted: Yes'])});
 document.getElementById('ib-order').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);const request=String(d.get('request')||'').trim();if(!request){alert('Please describe the hair or supplies you are looking for.');return;}ibEmail('Island Braids hair and supplies enquiry',['Please advise on the following hair or supplies: '+request,'Previously saved items (if any): '+(ibBag.length?ibBag.join('; '):'None'),'Name: '+d.get('name'),'Email: '+d.get('email'),'Phone: '+d.get('phone'),'Preferred fulfilment: '+d.get('delivery'),'Please confirm suitable options, stock and price before any payment.'])});ibRender();
-</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-3" defer></script><script src="./assets/js/featured-reels.js?v=20261008-user5" defer></script></body></html>
+</script><script src="./assets/js/calendar.js" defer></script><script src="./assets/js/gallery.js" defer></script><script>document.querySelectorAll('[data-book-service]').forEach(link=>link.addEventListener('click',()=>{const s=document.querySelector('#ib-booking select[name="service"]');if(s){s.value=link.getAttribute('data-book-service');s.dispatchEvent(new Event('change',{bubbles:true}))}}));</script><script src="./assets/js/hero-motion.js?v=20261008-3" defer></script><script src="./assets/js/featured-reels.js?v=20261008-audio" defer></script></body></html>

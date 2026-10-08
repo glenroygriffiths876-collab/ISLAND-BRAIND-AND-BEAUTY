@@ -4,62 +4,71 @@
     "post": "DZtpoIIuAhH",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DZtpoIIuAhH/"
+    "source": "https://www.instagram.com/reel/DZtpoIIuAhH/",
+    "audio": true
   },
   {
     "name": "featured-dyn5",
     "post": "DYN5x57ubAK",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DYN5x57ubAK/"
+    "source": "https://www.instagram.com/reel/DYN5x57ubAK/",
+    "audio": true
   },
   {
     "name": "featured-dxq",
     "post": "DXqVCdCEhJ-",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DXqVCdCEhJ-/"
+    "source": "https://www.instagram.com/reel/DXqVCdCEhJ-/",
+    "audio": true
   },
   {
     "name": "featured-dxar",
     "post": "DXarAiYAagj",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DXarAiYAagj/"
+    "source": "https://www.instagram.com/reel/DXarAiYAagj/",
+    "audio": true
   },
   {
     "name": "featured-dwaa",
     "post": "DWAaovIjksS",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DWAaovIjksS/"
+    "source": "https://www.instagram.com/reel/DWAaovIjksS/",
+    "audio": true
   },
   {
     "name": "boho",
     "post": "DIVOZl2OKeE",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DIVOZl2OKeE/"
+    "source": "https://www.instagram.com/reel/DIVOZl2OKeE/",
+    "audio": true
   },
   {
     "name": "hair-store",
     "post": "DMty3PQOV2U",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DMty3PQOV2U/"
+    "source": "https://www.instagram.com/reel/DMty3PQOV2U/",
+    "audio": true
   },
   {
     "name": "boho-box",
     "post": "DPY-NR1DrK7",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DPY-NR1DrK7/"
+    "source": "https://www.instagram.com/reel/DPY-NR1DrK7/",
+    "audio": true
   },
   {
     "name": "braid-finish",
     "post": "DLurVy7KGBH",
     "photo": true,
     "video": true,
-    "source": "https://www.instagram.com/reel/DLurVy7KGBH/"
+    "source": "https://www.instagram.com/reel/DLurVy7KGBH/",
+    "audio": false
   }
 ]

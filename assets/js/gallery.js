@@ -39,12 +39,19 @@
     if(photoReady){
       const image=node('img',{src:base+item.stem+'.webp',alt:item.title+' — Island Braids & Beauty',loading:'lazy',decoding:'async'});
       const imageLink=node('a',{class:'ib-native-media',href:linkFor(item),target:'_blank',rel:'noopener noreferrer','aria-label':'View '+item.title+' on Instagram'},[image]);
-      if(manifest.video)imageLink.append(node('span',{class:'ib-video-label','aria-hidden':'true',text:'Watch the Reel ↗'}));
       image.onerror=()=>{
         imageLink.replaceChildren(node('span',{class:'ib-native-error',text:'See this look on Instagram ↗'}));
         imageLink.classList.add('ib-native-no-photo');
       };
-      card.append(imageLink);
+      if(manifest.video){
+        const video=node('video',{
+          controls:'',playsinline:'',preload:'none',poster:base+item.stem+'.webp',
+          'aria-label':'Play the Island Braids video: '+item.title
+        },[node('source',{src:base+item.stem+'.mp4',type:'video/mp4'})]);
+        video.addEventListener('error',()=>{video.replaceWith(imageLink)});
+        const media=node('div',{class:'ib-native-media ib-native-video'},[video]);
+        card.append(media);
+      }else card.append(imageLink);
     }else{
       const photoLink=node('a',{class:'ib-native-media ib-native-no-photo',href:linkFor(item),target:'_blank',rel:'noopener noreferrer','aria-label':'Open '+item.title+' on Instagram'},[
         node('span',{class:'ib-native-ornament','aria-hidden':'true',text:'✳'}),
@@ -88,6 +95,11 @@
     if (ready.length) gallery.replaceChildren(...ready.map(item=>createCard(item,verified.get(item.stem))));
     installVideo(verified);
   }
+  gallery.addEventListener('play',event=>{
+    if(event.target.tagName==='VIDEO'){
+      gallery.querySelectorAll('video').forEach(v=>{if(v!==event.target)v.pause()});
+    }
+  },true);
   fetch(base+'manifest.json',{cache:'no-store'})
     .then(resp=>resp.ok?resp.json():Promise.reject(new Error('No media manifest')))
     .then(list=>draw(Array.isArray(list)?list:[]))

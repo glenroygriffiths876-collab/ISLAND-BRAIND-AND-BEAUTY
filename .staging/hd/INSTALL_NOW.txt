@@ -1,1 +1,0 @@
-Full-quality image installation trigger. Image data in .b64 files is independently checksum-verified.
